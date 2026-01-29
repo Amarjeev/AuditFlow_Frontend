@@ -1,24 +1,32 @@
-import AdminNavbar from "../navbar/AdminNavbar";
-import { UploadCloud, Trash2, XCircle } from "lucide-react";
-import { useUploadJobs } from "./useUploadJobs";
+import { UploadCloud, Trash2, Eye, RefreshCw } from "lucide-react";
+import { useUploadJobs } from "../hooks/useUploadJobs";
+import { formatDateTime } from "../../../utils/formatDate";
+import AdminNavbar from "../../navbar/AdminNavbar";
+import { useNavigate } from "react-router-dom";
 
 const UploadJobs = () => {
+  const navigate = useNavigate();
+
   const {
     fileInputRef,
     jobs,
+    setJobs,
     showUploadModal,
     selectedFile,
     error,
     setShowUploadModal,
     handleFileSelect,
     handleUpload,
-    cancelJob,
-    deleteJob,
+    deleteLoading,
+    deletingId,
+    handleDeleteJob,
     clearSelectedFile,
     previewRows,
     systemFields,
     fieldMapping,
     handleFieldMappingChange,
+    isUploading,
+    refetchJobs,
   } = useUploadJobs();
 
   const statusStyles = (status: string) => {
@@ -39,7 +47,6 @@ const UploadJobs = () => {
       <AdminNavbar />
 
       <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 px-6 py-8">
-        {/* Header Card */}
         <div className="mb-8 rounded-2xl bg-white p-6 shadow-sm border flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-semibold text-gray-800">
@@ -50,13 +57,42 @@ const UploadJobs = () => {
             </p>
           </div>
 
-          <button
-            onClick={() => setShowUploadModal(true)}
-            className="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-blue-600 to-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:opacity-90 transition"
-          >
-            <UploadCloud size={16} />
-            New Upload
-          </button>
+          <div className="flex items-center gap-3">
+            {/* 🔄 Refresh */}
+            <button
+              onClick={refetchJobs}
+              className="
+        inline-flex items-center gap-2
+        rounded-xl
+        bg-gray-100
+        px-4 py-2.5
+        text-sm font-medium text-gray-700
+        hover:bg-gray-200
+        transition
+      "
+            >
+              <RefreshCw size={16} />
+              Refresh
+            </button>
+
+            {/* ⬆️ New Upload */}
+            <button
+              onClick={() => setShowUploadModal(true)}
+              className="
+        inline-flex items-center gap-2
+        rounded-xl
+        bg-linear-to-r from-blue-600 to-indigo-600
+        px-5 py-2.5
+        text-sm font-medium text-white
+        shadow
+        hover:opacity-90
+        transition
+      "
+            >
+              <UploadCloud size={16} />
+              New Upload
+            </button>
+          </div>
         </div>
 
         {/* Table Card */}
@@ -73,7 +109,7 @@ const UploadJobs = () => {
             </thead>
 
             <tbody>
-              {jobs.length === 0 && (
+              {jobs?.length === 0 && (
                 <tr>
                   <td
                     colSpan={5}
@@ -84,45 +120,68 @@ const UploadJobs = () => {
                 </tr>
               )}
 
-              {jobs.map((j) => (
-                <tr key={j.id} className="border-t hover:bg-gray-50 transition">
+              {jobs?.map((j) => (
+                <tr
+                  key={j?._id}
+                  className="border-t hover:bg-gray-50 transition"
+                >
                   <td className="px-6 py-4 font-medium text-gray-800">
-                    {j.id}
+                    {j?._id}
                   </td>
 
                   <td className="px-6 py-4 text-gray-700 truncate max-w-xs">
-                    {j.fileName}
+                    {j?.fileName}
                   </td>
 
                   <td className="px-6 py-4">
                     <span
                       className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${statusStyles(
-                        j.status,
+                        j?.status,
                       )}`}
                     >
-                      {j.status}
+                      {j?.status}
                     </span>
                   </td>
 
-                  <td className="px-6 py-4 text-gray-500">{j.uploadedAt}</td>
+                  <td className="px-6 py-4 text-gray-500">
+                    {" "}
+                    {formatDateTime(j?.createdAt)}
+                  </td>
 
                   <td className="px-6 py-4 flex gap-2">
-                    {j.status === "PROCESSING" && (
+                    {j?.status === "COMPLETED" && (
                       <button
-                        onClick={() => cancelJob(j.id)}
-                        className="inline-flex items-center gap-1 rounded-lg bg-red-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-red-600 transition"
+                        onClick={() => navigate(`/upload-jobs/${j?._id}`)}
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-700 transition"
                       >
-                        <XCircle size={14} />
-                        Cancel
+                        <Eye size={14} />
+                        View Details
                       </button>
                     )}
 
                     <button
-                      onClick={() => deleteJob(j.id)}
-                      className="inline-flex items-center gap-1 rounded-lg bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-200 transition"
+                      onClick={async () => {
+                        await handleDeleteJob(j?._id);
+
+                        setJobs((prev) =>
+                          prev.filter((item) => item?._id !== j?._id),
+                        );
+                      }}
+                      disabled={deleteLoading && deletingId === j?._id}
+                      className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium
+    transition-all duration-200
+    ${
+      deletingId === j?._id
+        ? "bg-red-100 text-red-600 cursor-not-allowed"
+        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+    }
+  `}
                     >
-                      <Trash2 size={14} />
-                      Delete
+                      <Trash2
+                        size={14}
+                        className={deletingId === j?._id ? "animate-pulse" : ""}
+                      />
+                      {deletingId === j?._id ? "Deleting..." : "Delete"}
                     </button>
                   </td>
                 </tr>
@@ -200,7 +259,11 @@ const UploadJobs = () => {
                           {Object.keys(previewRows[0]).map((key) => (
                             <th key={key} className="px-3 py-2">
                               <select
-                                value={fieldMapping[key] || ""}
+                                value={
+                                  Object.entries(fieldMapping).find(
+                                    ([, csv]) => csv === key,
+                                  )?.[0] || ""
+                                }
                                 onChange={(e) =>
                                   handleFieldMappingChange(key, e.target.value)
                                 }
@@ -264,9 +327,21 @@ const UploadJobs = () => {
 
                 <button
                   onClick={handleUpload}
-                  className="rounded-xl bg-linear-to-r from-blue-600 to-indigo-600 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition"
+                  disabled={isUploading}
+                  className="
+    flex items-center justify-center gap-2
+    rounded-xl
+    bg-linear-to-r from-blue-600 to-indigo-600
+    px-4 py-2 text-sm font-medium text-white
+    transition-all duration-200
+    hover:opacity-90
+    disabled:opacity-70
+  "
                 >
-                  Upload
+                  {isUploading && (
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  )}
+                  {isUploading ? "Uploading..." : "Upload"}
                 </button>
               </div>
             </div>

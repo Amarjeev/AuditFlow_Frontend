@@ -2,19 +2,19 @@ import { Routes, Route } from "react-router-dom";
 
 import Dashboard from "./pages/admin/AdminDashboard";
 import Users from "./components/admin/users/Users";
-import UploadJobs from "./components/upload-jobs/UploadJobs";
+import UploadJobs from "./components/upload-jobs/ui/UploadJobs";
 import AuditLogs from "./components/audit-logs/AuditLogs";
 import AdminProfile from "./components/admin/profile/AdminProfile";
 import Login from "./features/auth/Login";
 import { useAuthRedirect } from "./services/useAuthRedirect";
 
 import LandingPage from "./pages/Landing/LandingPage";
+import UploadJobDetailsPage from "./pages/UploadJobDetails.page";
 
 const App = () => {
   useAuthRedirect();
   return (
     <>
-
       <Routes>
         {/* Login */}
         <Route path="/" element={<LandingPage />} />
@@ -24,6 +24,8 @@ const App = () => {
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/users" element={<Users />} />
         <Route path="/admin/upload-jobs" element={<UploadJobs />} />
+        <Route path="/upload-jobs/:jobId" element={<UploadJobDetailsPage />} />
+
         <Route path="/admin/audit-logs" element={<AuditLogs />} />
         <Route path="/admin/profile" element={<AdminProfile />} />
       </Routes>
