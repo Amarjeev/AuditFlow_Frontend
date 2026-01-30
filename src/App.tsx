@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import Dashboard from "./pages/admin/AdminDashboard";
+import Dashboard from "./pages/admin/AdminDashboardPage";
 import Users from "./components/admin/users/Users";
 import UploadJobs from "./components/upload-jobs/ui/UploadJobs";
 import AuditLogs from "./components/audit-logs/AuditLogs";

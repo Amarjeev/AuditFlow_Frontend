@@ -1,12 +1,12 @@
-type SummaryCardVariant = "success" | "warning" | "danger" | "info";
+export type SummaryCardVariant = "success" | "warning" | "danger" | "info";
 
 type SummaryCardProps = {
   title: string;
   value: number | string;
   variant?: SummaryCardVariant;
   trend?: {
-    value: string; // e.g. "+2.4%"
-    label?: string; // e.g. "vs last run"
+    value: string;
+    label?: string;
   };
 };
 
@@ -45,7 +45,7 @@ const variantStyles: Record<
   },
 };
 
-export default function SummaryCard({
+export default function SummaryMetricCard({
   title,
   value,
   variant = "info",

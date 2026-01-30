@@ -1,30 +1,24 @@
 import ReconciliationChart from "./ReconciliationChart";
 import ReconciliationFilters from "./ReconciliationFilters";
-import { useReconciliationFilters } from "./useReconciliationFilters";
+import { useReconciliationFilters } from "./hooks/useReconciliationFilters";
 
 const ReconciliationSection = () => {
-  const { filters, actions, filteredData } = useReconciliationFilters();
+  const { filters, actions, data, loading } = useReconciliationFilters();
 
   return (
-    <section className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
-      {/* Header */}
-      <div className="px-6 pt-6 pb-4 border-b border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900">
-          Reconciliation Overview
-        </h2>
-        <p className="text-sm text-gray-500 mt-1">
-          Analyze and filter reconciliation data in real time
-        </p>
-      </div>
-
+    <section className="bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col h-full">
       {/* Filters */}
-      <div className="px-6 py-4 bg-gray-50/60">
-        <ReconciliationFilters filters={filters} actions={actions} />
+      <div className="px-6 py-4 bg-gray-50/60 border-b">
+        <ReconciliationFilters
+          filters={filters}
+          actions={actions}
+          onSubmit={actions.handleApplyFilters}
+        />
       </div>
 
-      {/* Chart */}
-      <div className="px-6 py-6">
-        <ReconciliationChart data={filteredData} />
+      {/* Chart (FILL SPACE) */}
+      <div className="px-6 py-6 flex-1 min-h-[420px]">
+        <ReconciliationChart data={data} loading={loading} />
       </div>
     </section>
   );
