@@ -14,6 +14,7 @@ export interface UploadJob {
   _id: string;
   fileName: string;
   createdAt: string;
+  uploadedByRole: string;
   status: JobStatus;
 }
 

@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { getAxiosErrorMessage } from "../../utils/getAxiosErrorMessage";
-import { loginApi } from "./login.api";
-import { showError, showSuccess } from "../../utils/toast";
+import { loginApi } from "../api/login.api";
+import { showError, showSuccess } from "../../../utils/toast";
 import { useNavigate } from "react-router-dom";
 
 export type UserRole = "admin" | "analyst" | "viewer";
 
 export type LoginPayload = {
-  username: string;
+  mobile: string;
   password: string;
   role: UserRole;
 };
 
-const useLoginLogic = () => {
+const useLogin = () => {
   const { role } = useParams<{ role: string }>();
 
   const userRole = role?.toLowerCase().trim();
@@ -21,10 +20,10 @@ const useLoginLogic = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState<{
-    username: string;
+    mobile: string;
     password: string;
   }>({
-    username: "",
+    mobile: "",
     password: "",
   });
 
@@ -49,8 +48,8 @@ const useLoginLogic = () => {
       return;
     }
 
-    if (!form.username) {
-      setError("Username is required.");
+    if (!form.mobile) {
+      setError("Mobile number is required.");
       return;
     }
 
@@ -62,28 +61,27 @@ const useLoginLogic = () => {
     try {
       setLoading(true);
       const payload: LoginPayload = {
-        username: form?.username,
+        mobile: form?.mobile,
         password: form?.password,
         role: userRole as UserRole,
       };
 
       await loginApi(payload);
       setForm({
-        username: "",
+        mobile: "",
         password: "",
       });
 
       showSuccess("Login successful. Welcome back!");
-      setTimeout(() => {
+
+      if (userRole === "admin") {
         navigate(`/${userRole}/dashboard`);
-      }, 1000);
-    } catch (err) {
-      setError(
-        getAxiosErrorMessage(
-          err,
-          "Unable to login. Please check your credentials and try again.",
-        ),
-      );
+      } else if (userRole === "analyst") {
+        navigate(`/${userRole}/upload-jobs`);
+      }
+
+    } catch {
+      setError("Unable to login. Please check your credentials and try again.");
     } finally {
       setLoading(false);
     }
@@ -99,4 +97,4 @@ const useLoginLogic = () => {
   };
 };
 
-export default useLoginLogic;
+export default useLogin;

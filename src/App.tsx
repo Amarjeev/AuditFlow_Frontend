@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 
 import Dashboard from "./pages/admin/AdminDashboardPage";
-import Users from "./components/admin/users/Users";
+// import CreateUserProfile from "./components/admin/users/";
+import CreateUserProfile from "./components/admin/users/ui/CreateUserProfile";
 import UploadJobs from "./components/upload-jobs/ui/UploadJobs";
-import AuditLogs from "./components/audit-logs/AuditLogs";
-import AdminProfile from "./components/admin/profile/AdminProfile";
-import Login from "./features/auth/Login";
+import AuditLogs from "./components/audit-logs/ui/AuditLogs";
+// import CreateUserProfile from "./components/admin/profile/CreateUserProfilee";
+import Login from "./components/auth/ui/Login";
 import { useAuthRedirect } from "./services/useAuthRedirect";
 
 import LandingPage from "./pages/Landing/LandingPage";
@@ -22,12 +23,12 @@ const App = () => {
 
         {/* Admin routes */}
         <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/users" element={<Users />} />
-        <Route path="/admin/upload-jobs" element={<UploadJobs />} />
-        <Route path="/upload-jobs/:jobId" element={<UploadJobDetailsPage />} />
+        <Route path="/admin/users" element={<CreateUserProfile />} />
+        <Route path="/:role/upload-jobs" element={<UploadJobs />} />
+        <Route path="/:role/upload-jobs/:jobId" element={<UploadJobDetailsPage />} />
 
-        <Route path="/admin/audit-logs" element={<AuditLogs />} />
-        <Route path="/admin/profile" element={<AdminProfile />} />
+        <Route path="/:role/audit-logs" element={<AuditLogs />} />
+        {/* <Route path="/admin/profile" element={<CreateUserProfile />} /> */}
       </Routes>
     </>
   );

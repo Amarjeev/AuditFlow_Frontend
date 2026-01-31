@@ -1,26 +1,26 @@
 import { Link } from "react-router-dom";
-import { adminLinks } from "./NavbarLinks";
+import { analystLinks } from "./NavbarLinks";
 import { useNavbarLogic } from "./useNavbarlogic";
 
-const AdminNavbar = () => {
+const AnalystNavbar = () => {
   const { open, setOpen, handleLogout, isActive } = useNavbarLogic();
 
   return (
-    <nav className="bg-gray-900 text-white shadow-lg">
+    <nav className="bg-slate-900 text-white shadow-lg">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         {/* Logo */}
         <h1 className="text-xl font-bold tracking-wide">
-          Audit<span className="text-indigo-400">Flow</span>
+          Audit<span className="text-teal-400">Flow</span>
         </h1>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
-          {adminLinks.map((link) =>
+          {analystLinks.map((link) =>
             link.action === "logout" ? (
               <button
                 key={link.label}
                 onClick={handleLogout}
-                className="text-sm font-medium text-red-400 hover:text-red-300"
+                className="text-sm font-medium text-rose-400 hover:text-rose-300"
               >
                 {link.label}
               </button>
@@ -30,21 +30,18 @@ const AdminNavbar = () => {
                 to={link.path!}
                 className={`text-sm font-medium transition ${
                   isActive(link.path)
-                    ? "text-indigo-400 border-b-2 border-indigo-400"
-                    : "text-gray-300 hover:text-white"
+                    ? "text-teal-400 border-b-2 border-teal-400"
+                    : "text-slate-300 hover:text-white"
                 }`}
               >
                 {link.label}
               </Link>
-            )
+            ),
           )}
         </div>
 
         {/* Mobile Toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-2xl"
-        >
+        <button onClick={() => setOpen(!open)} className="md:hidden text-2xl">
           ☰
         </button>
       </div>
@@ -52,4 +49,4 @@ const AdminNavbar = () => {
   );
 };
 
-export default AdminNavbar;
+export default AnalystNavbar;

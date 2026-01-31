@@ -2,6 +2,8 @@ import AdminNavbar from "../../navbar/AdminNavbar";
 import type { ReconciliationResult } from "../types/reconciliation.types";
 import { SummaryCard } from "./SummaryCard";
 import { StatusBadge } from "./StatusBadge";
+import { useParams } from "react-router-dom";
+import AnalystNavbar from "../../navbar/AnalystNavbar";
 
 type Props = {
   loading: boolean;
@@ -9,9 +11,14 @@ type Props = {
 };
 
 export const UploadJobDetailsView = ({ loading, data }: Props) => {
+  const { role } = useParams();
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      <AdminNavbar />
+      {role?.trim().toLowerCase() === "admin" ? (
+        <AdminNavbar />
+      ) : (
+        <AnalystNavbar />
+      )}
 
       {/* Page Content */}
       <div className="flex-1 px-4 sm:px-6 py-6 space-y-6">
@@ -37,8 +44,14 @@ export const UploadJobDetailsView = ({ loading, data }: Props) => {
               <SummaryCard label="Total" value={data.totalRecords} />
               <SummaryCard label="Matched" value={data.totalMatchedRecords} />
               <SummaryCard label="Partial" value={data.totalPartialRecords} />
-              <SummaryCard label="Unmatched" value={data.totalUnmatchedRecords} />
-              <SummaryCard label="Duplicate" value={data.totalDuplicateRecords} />
+              <SummaryCard
+                label="Unmatched"
+                value={data.totalUnmatchedRecords}
+              />
+              <SummaryCard
+                label="Duplicate"
+                value={data.totalDuplicateRecords}
+              />
             </div>
 
             {/* Results Table */}
@@ -89,13 +102,8 @@ export const UploadJobDetailsView = ({ loading, data }: Props) => {
                           ) : (
                             <div className="space-y-1">
                               {r.mismatchedFields.map((m) => (
-                                <div
-                                  key={m.field}
-                                  className="text-red-600"
-                                >
-                                  <span className="font-medium">
-                                    {m.field}
-                                  </span>
+                                <div key={m.field} className="text-red-600">
+                                  <span className="font-medium">{m.field}</span>
                                   : {m.uploadedValue} → {m.systemValue}
                                 </div>
                               ))}

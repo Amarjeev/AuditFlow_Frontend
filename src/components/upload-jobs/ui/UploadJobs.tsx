@@ -2,10 +2,12 @@ import { UploadCloud, Trash2, Eye, RefreshCw } from "lucide-react";
 import { useUploadJobs } from "../hooks/useUploadJobs";
 import { formatDateTime } from "../../../utils/formatDate";
 import AdminNavbar from "../../navbar/AdminNavbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import AnalystNavbar from "../../navbar/AnalystNavbar";
 
 const UploadJobs = () => {
   const navigate = useNavigate();
+  const { role } = useParams();
 
   const {
     fileInputRef,
@@ -44,7 +46,11 @@ const UploadJobs = () => {
 
   return (
     <>
-      <AdminNavbar />
+      {role?.trim().toLowerCase() === "admin" ? (
+        <AdminNavbar />
+      ) : (
+        <AnalystNavbar />
+      )}
 
       <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 px-6 py-8">
         <div className="mb-8 rounded-2xl bg-white p-6 shadow-sm border flex items-center justify-between">
@@ -103,7 +109,12 @@ const UploadJobs = () => {
                 <th className="px-6 py-4 text-left font-medium">Job ID</th>
                 <th className="px-6 py-4 text-left font-medium">File</th>
                 <th className="px-6 py-4 text-left font-medium">Status</th>
-                <th className="px-6 py-4 text-left font-medium">Uploaded</th>
+                <th className="px-6 py-4 text-left font-medium">
+                  Uploaded Date
+                </th>
+                <th className="px-6 py-4 text-left font-medium">
+                  Uploaded role
+                </th>
                 <th className="px-6 py-4 text-left font-medium">Actions</th>
               </tr>
             </thead>
@@ -148,10 +159,18 @@ const UploadJobs = () => {
                     {formatDateTime(j?.createdAt)}
                   </td>
 
+                  <td className="px-6 py-4 text-gray-500">
+                    {j?.uploadedByRole}
+                  </td>
+
                   <td className="px-6 py-4 flex gap-2">
                     {j?.status === "COMPLETED" && (
                       <button
-                        onClick={() => navigate(`/upload-jobs/${j?._id}`)}
+                        onClick={() =>
+                          navigate(
+                            `/${role?.trim().toLowerCase()}/upload-jobs/${j?._id}`,
+                          )
+                        }
                         className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-700 transition"
                       >
                         <Eye size={14} />

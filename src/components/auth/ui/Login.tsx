@@ -1,4 +1,4 @@
-import useLoginLogic from "./useLoginLogic";
+import useLoginLogic from "../hook/useLogin";
 
 function Login() {
   const { userRole, form, error, handleChange, handleLogin, loading } =
@@ -23,13 +23,21 @@ function Login() {
         {/* Form */}
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="block text-sm text-gray-600 mb-1">Username</label>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Mobile Number
+            </label>
+
             <input
-              name="username"
-              value={form.username}
+              type="tel"
+              name="mobile"
+              value={form.mobile}
               onChange={handleChange}
-              className="w-full border rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500"
-              placeholder="admin@auditflow"
+              maxLength={10}
+              inputMode="numeric"
+              pattern="[6-9][0-9]{9}"
+              className="w-full rounded-xl border border-gray-300 px-4 py-2 text-sm
+               focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter 10-digit mobile number"
             />
           </div>
 

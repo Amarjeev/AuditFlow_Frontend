@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import AdminNavbar from "../../navbar/AdminNavbar";
 
-function AdminProfile() {
+function CreateUserProfilee() {
   const [profile, setProfile] = useState({
     username: "admin.auditflow",
   });
@@ -42,6 +43,8 @@ function AdminProfile() {
   };
 
   return (
+    <>
+    <AdminNavbar/>
     <div className="min-h-screen bg-gray-100 p-6">
       {/* Header */}
       <div className="bg-white rounded-2xl shadow p-6 mb-6">
@@ -145,7 +148,8 @@ function AdminProfile() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
-export default AdminProfile;
+export default CreateUserProfilee;
