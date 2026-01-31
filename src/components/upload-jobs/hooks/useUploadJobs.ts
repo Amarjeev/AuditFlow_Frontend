@@ -8,6 +8,7 @@ import { getuploadJobApi } from "../api/uploadJobs.api";
 import { showError } from "../../../utils/toast";
 import { useDeleteJob } from "./useDeleteJob";
 import type { UploadJob } from "../type/uploadJobs.types";
+import axios from "axios";
 
 export const useUploadJobs = () => {
   const [error, setError] = useState("");
@@ -97,10 +98,21 @@ export const useUploadJobs = () => {
       clearSelectedFile();
       setFieldMapping({});
     } catch (err) {
-      console.log("error deatiles :",err.response)
-      setError(
-        getAxiosErrorMessage(err || "File upload failed. Please try again."),
-      );
+      // console.log("error deatiles :",err.response)
+      // setError(
+      //   getAxiosErrorMessage(err || "File upload failed. Please try again."),
+      // );
+      if (axios.isAxiosError(err)) {
+        console.log("error details:", err.response?.data);
+
+        setError(
+          getAxiosErrorMessage(err) || "File upload failed. Please try again.",
+        );
+      } else {
+        console.log("unexpected error:", err);
+
+        setError("Something went wrong. Please try again.");
+      }
     } finally {
       setIsUploading(false);
     }
