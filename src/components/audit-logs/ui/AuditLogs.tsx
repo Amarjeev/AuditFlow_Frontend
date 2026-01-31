@@ -37,9 +37,7 @@ function AuditLogs() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
             {/* Job ID */}
             <div>
-              <label className="block text-xs text-gray-500 mb-1">
-                Job ID
-              </label>
+              <label className="block text-xs text-gray-500 mb-1">Job ID</label>
               <input
                 type="text"
                 placeholder="Enter Job ID"
@@ -53,9 +51,7 @@ function AuditLogs() {
 
             {/* Action */}
             <div>
-              <label className="block text-xs text-gray-500 mb-1">
-                Action
-              </label>
+              <label className="block text-xs text-gray-500 mb-1">Action</label>
               <select
                 value={filters.action}
                 onChange={(e) =>
@@ -120,7 +116,7 @@ function AuditLogs() {
                       <span className="md:hidden text-xs text-gray-500">
                         Time
                       </span>
-                      <div className="text-gray-600">
+                      <div className="text-xs font-medium text-gray-400 tracking-wide">
                         {formatDateTime(log.timestamp)}
                       </div>
                     </td>
@@ -130,9 +126,7 @@ function AuditLogs() {
                       <span className="md:hidden text-xs text-gray-500">
                         Action
                       </span>
-                      <div className="font-semibold">
-                        {log.action}
-                      </div>
+                      <div className="font-semibold">{log.action}</div>
                     </td>
 
                     {/* Performed By */}
@@ -201,10 +195,7 @@ function AuditLogs() {
 
                 {!loading && logs.length === 0 && (
                   <tr>
-                    <td
-                      colSpan={7}
-                      className="p-6 text-center text-gray-400"
-                    >
+                    <td colSpan={7} className="p-6 text-center text-gray-400">
                       No audit logs found
                     </td>
                   </tr>
