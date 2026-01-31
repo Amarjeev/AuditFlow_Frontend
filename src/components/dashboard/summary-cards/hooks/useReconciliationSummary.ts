@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { getReconciliationSummaryApi } from "../api/reconciliationSummary.api";
 import type { SummaryCardVariant } from "../ui/SummaryMetricCard";
-import { showError } from "../../../../../utils/toast";
+import { showError } from "../../../../utils/toast";
 
 type ReconciliationSummaryResponse = {
   totalRecords: number;
