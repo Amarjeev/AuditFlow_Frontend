@@ -19,7 +19,6 @@ const UserTable = ({ users, loading, deleteUser, deletingId }: Props) => {
     <div className="bg-white rounded-2xl shadow-sm border overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          {/* Desktop Header */}
           <thead className="hidden md:table-header-group bg-gray-50 border-b">
             <tr>
               <th className="px-6 py-3 text-left font-semibold text-gray-600">
@@ -41,12 +40,7 @@ const UserTable = ({ users, loading, deleteUser, deletingId }: Props) => {
             {users.map((user) => (
               <tr
                 key={user._id}
-                className="
-                  block md:table-row
-                  p-4 md:p-0
-                  hover:bg-gray-50
-                  transition
-                "
+                className="block md:table-row p-4 md:p-0 hover:bg-gray-50 transition"
               >
                 {/* Name */}
                 <td className="block md:table-cell px-0 md:px-6 py-1 md:py-4">
@@ -81,23 +75,25 @@ const UserTable = ({ users, loading, deleteUser, deletingId }: Props) => {
                   {user.role.toLowerCase() !== "admin" ? (
                     <button
                       onClick={() => deleteUser(user._id)}
+                      disabled={deletingId === user._id}
                       className={`
-                        mt-1 md:mt-0
-                        inline-flex items-center
-                        text-sm font-medium text-red-600
-                        hover:underline
-                        transition
+                        mt-2 md:mt-0
+                        inline-flex items-center justify-center
+                        rounded-full
+                        px-4 py-1.5
+                        text-xs font-semibold
+                        transition-all
                         ${
                           deletingId === user._id
-                            ? "opacity-60 animate-pulse"
-                            : ""
+                            ? "bg-red-100 text-red-500 cursor-not-allowed animate-pulse"
+                            : "bg-red-50 text-red-600 hover:bg-red-100"
                         }
                       `}
                     >
                       {deletingId === user._id ? "Deleting…" : "Delete"}
                     </button>
                   ) : (
-                    <span className="text-xs text-gray-400 italic">
+                    <span className="inline-block mt-2 md:mt-0 text-xs text-gray-400 italic">
                       Protected
                     </span>
                   )}
