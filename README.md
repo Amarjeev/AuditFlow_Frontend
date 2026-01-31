@@ -79,8 +79,8 @@ AuditFlow supports **three user roles**, with role enforcement applied on both f
 ---
 
 ## 🔐 Demo Admin Credentials
-Mobile Number: 9876543210
-Password: 123456
+[ Mobile Number: 9876543210 ]  
+[ Password: 123456 ]
 
 
 ---
