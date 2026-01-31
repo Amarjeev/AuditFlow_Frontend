@@ -1,11 +1,19 @@
-import ReconciliationSection from "../../components/admin/admin-dashboard/charts/ReconciliationSection";
-import ReconciliationSummarySection from "../../components/admin/admin-dashboard/summary-cards/ui/ReconciliationSummarySection";
+import ReconciliationSection from "../../components/dashboard/charts/ui/ReconciliationSection";
+import ReconciliationSummarySection from "../../components/dashboard/summary-cards/ui/ReconciliationSummarySection";
 import AdminNavbar from "../../components/navbar/AdminNavbar";
+import { useParams } from "react-router-dom";
+import ViewerNavbar from "../../components/navbar/ViewerNavbar";
 
-const AdminDashboard = () => {
+//sharing component admin and viewer
+const DashboardPage = () => {
+  const { role } = useParams();
   return (
     <>
-      <AdminNavbar />
+      {role?.trim().toLowerCase() === "admin" ? (
+        <AdminNavbar />
+      ) : (
+        <ViewerNavbar />
+      )}
 
       <main className="min-h-screen bg-gray-50 p-6">
         {/* Page Header */}
@@ -34,4 +42,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default DashboardPage;

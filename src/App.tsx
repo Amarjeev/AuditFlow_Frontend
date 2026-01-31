@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
-import Dashboard from "./pages/admin/AdminDashboardPage";
+// import Dashboard from "./pages/dashboard/DashboardPage";
+import DashboardPage from "./pages/dashboard/DashboardPage";
 // import CreateUserProfile from "./components/admin/users/";
 import CreateUserProfile from "./components/admin/users/ui/CreateUserProfile";
 import UploadJobs from "./components/upload-jobs/ui/UploadJobs";
@@ -22,7 +23,7 @@ const App = () => {
         <Route path="/login/:role" element={<Login />} />
 
         {/* Admin routes */}
-        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/:role/dashboard" element={<DashboardPage />} />
         <Route path="/admin/users" element={<CreateUserProfile />} />
         <Route path="/:role/upload-jobs" element={<UploadJobs />} />
         <Route path="/:role/upload-jobs/:jobId" element={<UploadJobDetailsPage />} />

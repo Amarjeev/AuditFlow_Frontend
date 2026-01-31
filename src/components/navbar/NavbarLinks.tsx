@@ -17,3 +17,9 @@ export const analystLinks: MenuItem[] = [
   { label: "Audit Logs", path: "/analyst/audit-logs" },
   { label: "Logout", action: "logout" },
 ];
+
+
+export const viewerLinks: MenuItem[] = [
+    { label: "Dashboard", path: "/viewer/dashboard" },
+  { label: "Logout", action: "logout" },
+];

@@ -74,12 +74,13 @@ const useLogin = () => {
 
       showSuccess("Login successful. Welcome back!");
 
-      if (userRole === "admin") {
+      const dashboardRoles = ["admin", "viewer"];
+
+      if (dashboardRoles.includes(userRole)) {
         navigate(`/${userRole}/dashboard`);
       } else if (userRole === "analyst") {
         navigate(`/${userRole}/upload-jobs`);
       }
-
     } catch {
       setError("Unable to login. Please check your credentials and try again.");
     } finally {

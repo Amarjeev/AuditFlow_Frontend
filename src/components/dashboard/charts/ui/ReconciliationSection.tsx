@@ -1,6 +1,6 @@
 import ReconciliationChart from "./ReconciliationChart";
 import ReconciliationFilters from "./ReconciliationFilters";
-import { useReconciliationFilters } from "./hooks/useReconciliationFilters";
+import { useReconciliationFilters } from "../hooks/useReconciliationFilters";
 
 const ReconciliationSection = () => {
   const { filters, actions, data, loading } = useReconciliationFilters();
