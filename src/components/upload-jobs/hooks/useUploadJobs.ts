@@ -97,6 +97,7 @@ export const useUploadJobs = () => {
       clearSelectedFile();
       setFieldMapping({});
     } catch (err) {
+      console.log("error deatiles :",err.response)
       setError(
         getAxiosErrorMessage(err || "File upload failed. Please try again."),
       );
