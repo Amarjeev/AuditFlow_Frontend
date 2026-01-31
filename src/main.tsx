@@ -4,11 +4,11 @@ import { Toaster } from "react-hot-toast";
 import "./index.css";
 import App from "./App.tsx";
 
-import "./services/authInterceptor.ts"
+import "./services/authInterceptor.ts";
 
 createRoot(document.getElementById("root")!).render(
-    <BrowserRouter>
-      <App />
-      <Toaster position="top-right" />
-    </BrowserRouter>
+  <BrowserRouter>
+    <App />
+    <Toaster position="top-right" />
+  </BrowserRouter>,
 );
