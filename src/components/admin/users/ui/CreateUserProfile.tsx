@@ -1,6 +1,6 @@
 import CreateUserForm from "./CreateUserForm";
 import UserTable from "./UserTable";
-import AdminNavbar from "../../../navbar/AdminNavbar";
+import AdminNavbar from "../../../navbar/ui/AdminNavbar";
 import { useCreateUser } from "../hooks/useCreateUser";
 import { useDeleteUsersProfile } from "../hooks/usedeleteUsersProfile";
 

@@ -1,26 +1,26 @@
 import { Link } from "react-router-dom";
-import { viewerLinks } from "./NavbarLinks";
-import { useNavbarLogic } from "./useNavbarlogic";
+import { analystLinks } from "../hooks/NavbarLinks";
+import { useNavbarLogic } from "../hooks/useNavbarlogic";
 
-const ViewerNavbar = () => {
+const AnalystNavbar = () => {
   const { open, setOpen, handleLogout, isActive } = useNavbarLogic();
 
   return (
-    <nav className="bg-indigo-900 text-white shadow-lg">
+    <nav className="bg-slate-900 text-white shadow-lg">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         {/* Logo */}
         <h1 className="text-xl font-bold tracking-wide">
-          Audit<span className="text-sky-400">Flow</span>
+          Audit<span className="text-teal-400">Flow</span>
         </h1>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
-          {viewerLinks?.map((link) =>
+          {analystLinks.map((link) =>
             link.action === "logout" ? (
               <button
                 key={link.label}
                 onClick={handleLogout}
-                className="text-sm font-medium text-amber-400 hover:text-amber-300 transition"
+                className="text-sm font-medium text-rose-400 hover:text-rose-300"
               >
                 {link.label}
               </button>
@@ -30,8 +30,8 @@ const ViewerNavbar = () => {
                 to={link.path!}
                 className={`text-sm font-medium transition ${
                   isActive(link.path)
-                    ? "text-sky-400 border-b-2 border-sky-400"
-                    : "text-indigo-200 hover:text-white"
+                    ? "text-teal-400 border-b-2 border-teal-400"
+                    : "text-slate-300 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -41,10 +41,7 @@ const ViewerNavbar = () => {
         </div>
 
         {/* Mobile Toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-2xl text-indigo-200"
-        >
+        <button onClick={() => setOpen(!open)} className="md:hidden text-2xl">
           ☰
         </button>
       </div>
@@ -52,4 +49,4 @@ const ViewerNavbar = () => {
   );
 };
 
-export default ViewerNavbar;
+export default AnalystNavbar;

@@ -1,7 +1,7 @@
 import { useAuditLogs } from "../hooks/useAuditLogs";
 import { useParams } from "react-router-dom";
-import AdminNavbar from "../../navbar/AdminNavbar";
-import AnalystNavbar from "../../navbar/AnalystNavbar";
+import AdminNavbar from "../../navbar/ui/AdminNavbar";
+import AnalystNavbar from "../../navbar/ui/AnalystNavbar";
 
 function AuditLogs() {
   const { role } = useParams();

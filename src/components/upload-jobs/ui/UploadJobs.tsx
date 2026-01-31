@@ -1,9 +1,9 @@
 import { UploadCloud, Trash2, Eye, RefreshCw } from "lucide-react";
 import { useUploadJobs } from "../hooks/useUploadJobs";
 import { formatDateTime } from "../../../utils/formatDate";
-import AdminNavbar from "../../navbar/AdminNavbar";
+import AdminNavbar from "../../navbar/ui/AdminNavbar";
 import { useNavigate, useParams } from "react-router-dom";
-import AnalystNavbar from "../../navbar/AnalystNavbar";
+import AnalystNavbar from "../../navbar/ui/AnalystNavbar";
 
 const UploadJobs = () => {
   const navigate = useNavigate();

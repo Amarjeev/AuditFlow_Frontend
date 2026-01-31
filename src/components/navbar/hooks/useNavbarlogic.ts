@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import type { MenuItem } from "./NavbarLinks";
-import { logoutApi } from "../auth/api/login.api";
-import { showError } from "../../utils/toast";
+import { logoutApi } from "../../auth/api/login.api";
+import { showError } from "../../../utils/toast";
 import { useNavigate } from "react-router-dom";
 
 export const useNavbarLogic = () => {

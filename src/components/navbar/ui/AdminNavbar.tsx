@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { adminLinks } from "./NavbarLinks";
-import { useNavbarLogic } from "./useNavbarlogic";
+import { adminLinks } from "../hooks/NavbarLinks";
+import { useNavbarLogic } from "../hooks/useNavbarlogic";
 
 const AdminNavbar = () => {
   const { open, setOpen, handleLogout, isActive } = useNavbarLogic();

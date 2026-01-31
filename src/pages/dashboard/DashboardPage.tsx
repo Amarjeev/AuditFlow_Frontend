@@ -1,8 +1,8 @@
 import ReconciliationSection from "../../components/dashboard/charts/ui/ReconciliationSection";
 import ReconciliationSummarySection from "../../components/dashboard/summary-cards/ui/ReconciliationSummarySection";
-import AdminNavbar from "../../components/navbar/AdminNavbar";
+import AdminNavbar from "../../components/navbar/ui/AdminNavbar";
 import { useParams } from "react-router-dom";
-import ViewerNavbar from "../../components/navbar/ViewerNavbar";
+import ViewerNavbar from "../../components/navbar/ui/ViewerNavbar";
 
 //sharing component admin and viewer
 const DashboardPage = () => {
