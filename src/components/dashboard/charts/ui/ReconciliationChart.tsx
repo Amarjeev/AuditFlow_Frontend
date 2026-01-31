@@ -1,32 +1,7 @@
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { COLORS } from "./constants";
+import type { Props, DataItem } from "../type/reconciliationChart.types";
 
-type ReconciliationChartData = {
-  matched: number;
-  partial: number;
-  unmatched: number;
-  duplicate: number;
-  accuracy: number;
-};
-
-type DataItem = {
-  key: string;
-  name: string;
-  value: number;
-};
-
-type Props = {
-  data: ReconciliationChartData | null;
-  loading: boolean;
-};
-
-/* Empty State */
 const EmptyState = ({
   title,
   description,
@@ -38,12 +13,8 @@ const EmptyState = ({
     <div className="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-4">
       📊
     </div>
-    <h3 className="text-lg font-semibold text-gray-900">
-      {title}
-    </h3>
-    <p className="text-sm text-gray-500 mt-1 max-w-sm">
-      {description}
-    </p>
+    <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+    <p className="text-sm text-gray-500 mt-1 max-w-sm">{description}</p>
   </div>
 );
 
@@ -65,11 +36,7 @@ const ReconciliationChart = ({ data, loading }: Props) => {
     );
   }
 
-  const total =
-    data.matched +
-    data.partial +
-    data.unmatched +
-    data.duplicate;
+  const total = data.matched + data.partial + data.unmatched + data.duplicate;
 
   if (total === 0) {
     return (
@@ -102,10 +69,7 @@ const ReconciliationChart = ({ data, loading }: Props) => {
               stroke="transparent"
             >
               {chartData.map((item) => (
-                <Cell
-                  key={item.key}
-                  fill={COLORS[item.key]}
-                />
+                <Cell key={item.key} fill={COLORS[item.key]} />
               ))}
             </Pie>
             <Tooltip />
@@ -117,27 +81,20 @@ const ReconciliationChart = ({ data, loading }: Props) => {
           <span className="text-4xl font-bold text-gray-900">
             {data.accuracy}%
           </span>
-          <span className="text-sm text-gray-500 mt-1">
-            Accuracy
-          </span>
+          <span className="text-sm text-gray-500 mt-1">Accuracy</span>
         </div>
       </div>
 
       {/* Legend */}
       <div className="w-full max-w-xs space-y-4">
         {chartData.map((item) => (
-          <div
-            key={item.key}
-            className="flex items-center justify-between"
-          >
+          <div key={item.key} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: COLORS[item.key] }}
               />
-              <span className="text-sm text-gray-700">
-                {item.name}
-              </span>
+              <span className="text-sm text-gray-700">{item.name}</span>
             </div>
 
             <span className="text-sm font-semibold text-gray-900">

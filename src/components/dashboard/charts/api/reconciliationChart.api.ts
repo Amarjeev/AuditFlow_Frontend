@@ -1,11 +1,5 @@
 import api from "../../../../config/api.config";
-
-type ReconciliationChartParams = {
-  status?: string;
-  uploadedBy?: string;
-  fromDate?: string;
-  toDate?: string;
-};
+import type { ReconciliationChartParams } from "../type/reconciliationChart.types";
 
 export const getReconciliationChartDataApi = async (
   params?: ReconciliationChartParams,

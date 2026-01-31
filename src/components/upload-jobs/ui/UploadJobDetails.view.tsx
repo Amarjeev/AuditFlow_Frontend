@@ -1,16 +1,12 @@
 import AdminNavbar from "../../navbar/AdminNavbar";
-import type { ReconciliationResult } from "../types/reconciliation.types";
+import type { UploadJobDetailsViewProps } from "../type/uploadJobs.types";
 import { SummaryCard } from "./SummaryCard";
 import { StatusBadge } from "./StatusBadge";
 import { useParams } from "react-router-dom";
 import AnalystNavbar from "../../navbar/AnalystNavbar";
 
-type Props = {
-  loading: boolean;
-  data: ReconciliationResult | null;
-};
 
-export const UploadJobDetailsView = ({ loading, data }: Props) => {
+export const UploadJobDetailsView = ({ loading, data }: UploadJobDetailsViewProps) => {
   const { role } = useParams();
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">

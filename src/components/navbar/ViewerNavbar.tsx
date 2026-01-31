@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { analystLinks } from "./NavbarLinks";
+import { viewerLinks } from "./NavbarLinks";
 import { useNavbarLogic } from "./useNavbarlogic";
 
 const ViewerNavbar = () => {
@@ -15,7 +15,7 @@ const ViewerNavbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6">
-          {analystLinks.map((link) =>
+          {viewerLinks?.map((link) =>
             link.action === "logout" ? (
               <button
                 key={link.label}

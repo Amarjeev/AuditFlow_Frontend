@@ -1,6 +1,5 @@
 import CreateUserForm from "./CreateUserForm";
 import UserTable from "./UserTable";
-// import EditUserModal from "./EditUserModal";
 import AdminNavbar from "../../../navbar/AdminNavbar";
 import { useCreateUser } from "../hooks/useCreateUser";
 import { useDeleteUsersProfile } from "../hooks/usedeleteUsersProfile";
@@ -50,19 +49,6 @@ function CreateUserProfile() {
           deleteUser={userData?.handleDeleteUser}
           deletingId={userData?.deletingId}
         />
-
-        {/* Edit Modal */}
-        {/* {user.editUser && (
-          <EditUserModal
-            form={user.form}
-            error={user.error}
-            showPasswordFields={user.showPasswordFields}
-            setShowPasswordFields={user.setShowPasswordFields}
-            handleChange={user.handleChange}
-            updateUser={user.updateUser}
-            setEditUser={user.setEditUser}
-          />
-        )} */}
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getReconciliationResultApi } from "../api/uploadJobs.api";
-import type { ReconciliationResult } from "../types/reconciliation.types";
+import type { ReconciliationResult } from "../type/uploadJobs.types";
 import { showError } from "../../../utils/toast";
 
 
@@ -21,7 +21,6 @@ export const useUploadJobDetails = () => {
       try {
         setLoading(true);
         const response = await getReconciliationResultApi(jobId);
-        console.log("response :",response)
         setData(response);
       } catch {
         showError("Failed to fetch reconciliation details");

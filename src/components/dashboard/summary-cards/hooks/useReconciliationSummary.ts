@@ -1,25 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { getReconciliationSummaryApi } from "../api/reconciliationSummary.api";
-import type { SummaryCardVariant } from "../ui/SummaryMetricCard";
 import { showError } from "../../../../utils/toast";
-
-type ReconciliationSummaryResponse = {
-  totalRecords: number;
-  matched: number;
-  unmatched: number;
-  duplicates: number;
-  accuracy: number;
-};
-
-export type SummaryCardConfig = {
-  title: string;
-  value: number | string;
-  variant?: SummaryCardVariant;
-  trend?: {
-    value: string;
-    label?: string;
-  };
-};
+import type {
+  ReconciliationSummaryResponse,
+  SummaryCardConfig,
+} from "../type/reconciliationSummary.types";
 
 export const useReconciliationSummary = () => {
   const [data, setData] = useState<ReconciliationSummaryResponse | null>(null);

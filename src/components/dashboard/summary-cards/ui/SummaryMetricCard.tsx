@@ -1,14 +1,7 @@
-export type SummaryCardVariant = "success" | "warning" | "danger" | "info";
-
-type SummaryCardProps = {
-  title: string;
-  value: number | string;
-  variant?: SummaryCardVariant;
-  trend?: {
-    value: string;
-    label?: string;
-  };
-};
+import type {
+  SummaryCardVariant,
+  SummaryCardProps,
+} from "../type/reconciliationSummary.types";
 
 const variantStyles: Record<
   SummaryCardVariant,
@@ -69,9 +62,7 @@ export default function SummaryMetricCard({
       />
 
       {/* Title */}
-      <p className="text-sm font-medium tracking-wide text-gray-500">
-        {title}
-      </p>
+      <p className="text-sm font-medium tracking-wide text-gray-500">{title}</p>
 
       {/* Value */}
       <h2

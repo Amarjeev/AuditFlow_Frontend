@@ -7,16 +7,7 @@ import { getAxiosErrorMessage } from "../../../utils/getAxiosErrorMessage";
 import { getuploadJobApi } from "../api/uploadJobs.api";
 import { showError } from "../../../utils/toast";
 import { useDeleteJob } from "./useDeleteJob";
-
-export type JobStatus = "PROCESSING" | "COMPLETED" | "FAILED" | "CANCELLED";
-
-export interface UploadJob {
-  _id: string;
-  fileName: string;
-  createdAt: string;
-  uploadedByRole: string;
-  status: JobStatus;
-}
+import type { UploadJob } from "../type/uploadJobs.types";
 
 export const useUploadJobs = () => {
   const [error, setError] = useState("");
@@ -38,8 +29,6 @@ export const useUploadJobs = () => {
     handleFileSelect,
     resetFileInput,
   } = useFileInput(parseCSV, parseExcel, setError);
-
-  // const { createJob, cancelJob, deleteJob } = useJobManager();
 
   const clearSelectedFile = () => {
     setSelectedFile(null);

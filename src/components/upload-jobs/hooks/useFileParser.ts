@@ -1,7 +1,6 @@
 import Papa from "papaparse";
 import * as XLSX from "xlsx";
 
-/* ---------- Types ---------- */
 type ExcelRow = Record<string, unknown>;
 
 /* ---------- Helpers ---------- */

@@ -1,7 +1,4 @@
-type Props = {
-  label: string;
-  value: number;
-};
+import type { Props } from "../type/uploadJobs.types";
 
 export const SummaryCard = ({ label, value }: Props) => (
   <div className="rounded-xl bg-white border p-4 text-center">

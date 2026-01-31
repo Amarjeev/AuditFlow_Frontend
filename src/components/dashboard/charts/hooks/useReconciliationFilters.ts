@@ -1,21 +1,10 @@
 import { useState } from "react";
 import { getReconciliationChartDataApi } from "../api/reconciliationChart.api";
 import { showError } from "../../../../utils/toast";
-
-type Filters = {
-  status: string;
-  uploadedBy: string;
-  fromDate: string;
-  toDate: string;
-};
-
-export type ReconciliationChartData = {
-  matched: number;
-  partial: number;
-  unmatched: number;
-  duplicate: number;
-  accuracy: number;
-};
+import type {
+  Filters,
+  ReconciliationChartData,
+} from "../type/reconciliationChart.types";
 
 export const useReconciliationFilters = () => {
   const [filters, setFilters] = useState<Filters>({
@@ -37,7 +26,7 @@ export const useReconciliationFilters = () => {
       showError("From date cannot be later than To date.");
       return;
     }
-    
+
     try {
       setLoading(true);
 

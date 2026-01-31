@@ -3,14 +3,7 @@ import { useParams } from "react-router-dom";
 import { loginApi } from "../api/login.api";
 import { showError, showSuccess } from "../../../utils/toast";
 import { useNavigate } from "react-router-dom";
-
-export type UserRole = "admin" | "analyst" | "viewer";
-
-export type LoginPayload = {
-  mobile: string;
-  password: string;
-  role: UserRole;
-};
+import type { LoginPayload, UserRole } from "../type/auth.types";
 
 const useLogin = () => {
   const { role } = useParams<{ role: string }>();

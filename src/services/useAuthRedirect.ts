@@ -31,7 +31,7 @@ export const useAuthRedirect = () => {
             navigate("/", { replace: true });
         }
       } catch {
-        navigate("/", { replace: true });
+        // navigate("/", { replace: true });
       }
     };
 
