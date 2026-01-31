@@ -89,7 +89,13 @@ AuditFlow supports **three user roles**, with role enforcement applied on both f
 
 - Supports Excel file uploads
 - File handling implemented using Multer
-- Asynchronous processing for improved performance
+- Each uploaded file generates a **unique data-based identifier**
+  - The identifier is created using file metadata and content signature
+  - This unique ID is used to **detect duplicate file uploads**
+- If the same file is uploaded multiple times, the system:
+  - Prevents duplicate data creation
+  - Reuses existing reconciliation results (idempotent behavior)
+- Asynchronous, non-blocking processing for improved performance
 - Redis caching used to optimize frequently accessed data
 - Live mismatch detection with line-by-line validation
 
