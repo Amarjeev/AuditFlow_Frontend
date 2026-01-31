@@ -14,6 +14,14 @@ This project was developed as part of a **Smart Reconciliation & Audit System** 
 
 ---
 
+## 📘 API Documentation
+
+Public Postman API documentation:
+👉 https://documenter.getpostman.com/view/43720226/2sBXVoA8No
+
+---
+
+
 ## 🧩 Tech Stack
 
 ### Frontend
