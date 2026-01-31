@@ -20,58 +20,48 @@ export const UploadJobDetailsView = ({
         <AnalystNavbar />
       )}
 
-      {/* Page Content */}
       <div className="flex-1 px-3 sm:px-6 py-4 sm:py-6 space-y-6">
-        {/* Loading State */}
+        {/* Loading */}
         {loading && (
           <div className="flex items-center justify-center text-gray-500">
             Loading reconciliation details...
           </div>
         )}
 
-        {/* No Data State */}
+        {/* No Data */}
         {!loading && !data && (
           <div className="flex items-center justify-center text-red-500">
             No reconciliation data found
           </div>
         )}
 
-        {/* Data State */}
+        {/* Data */}
         {!loading && data && (
           <>
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3">
               <SummaryCard label="Total" value={data.totalRecords} />
               <SummaryCard label="Matched" value={data.totalMatchedRecords} />
               <SummaryCard label="Partial" value={data.totalPartialRecords} />
-              <SummaryCard
-                label="Unmatched"
-                value={data.totalUnmatchedRecords}
-              />
-              <SummaryCard
-                label="Duplicate"
-                value={data.totalDuplicateRecords}
-              />
+              <SummaryCard label="Unmatched" value={data.totalUnmatchedRecords} />
+              <SummaryCard label="Duplicate" value={data.totalDuplicateRecords} />
             </div>
 
-            {/* Desktop / Tablet Table */}
+            {/* Responsive Table */}
             <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
               <div className="px-4 py-3 border-b font-semibold text-gray-700">
                 Reconciliation Results ({data.results.length})
               </div>
 
-              <div className="overflow-x-auto max-h-[60vh]">
+              <div className="overflow-x-auto">
                 <table className="w-full text-sm">
-                  <thead className="sticky top-0 bg-gray-50 text-gray-600 border-b">
+                  {/* Desktop Header */}
+                  <thead className="hidden md:table-header-group bg-gray-50 text-gray-600 border-b">
                     <tr>
-                      <th className="px-3 sm:px-4 py-3 text-left">Row</th>
-                      <th className="px-3 sm:px-4 py-3 text-left">
-                        Transaction ID
-                      </th>
-                      <th className="px-3 sm:px-4 py-3 text-left">Status</th>
-                      <th className="hidden md:table-cell px-4 py-3 text-left">
-                        Mismatch Details
-                      </th>
+                      <th className="px-4 py-3 text-left">Row</th>
+                      <th className="px-4 py-3 text-left">Transaction ID</th>
+                      <th className="px-4 py-3 text-left">Status</th>
+                      <th className="px-4 py-3 text-left">Mismatch Details</th>
                     </tr>
                   </thead>
 
@@ -79,22 +69,47 @@ export const UploadJobDetailsView = ({
                     {data.results.map((r) => (
                       <tr
                         key={r._id}
-                        className="border-b hover:bg-gray-50 transition"
+                        className="
+                          border-b
+                          md:table-row
+                          block md:table-row
+                          p-3 md:p-0
+                        "
                       >
-                        <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-600">
-                          {r.excelRowNumber}
+                        {/* Row Number */}
+                        <td className="block md:table-cell px-0 md:px-4 py-1 md:py-3">
+                          <span className="md:hidden text-xs text-gray-500">
+                            Row
+                          </span>
+                          <div className="font-medium text-gray-700">
+                            {r.excelRowNumber}
+                          </div>
                         </td>
 
-                        <td className="px-3 sm:px-4 py-2 sm:py-3 font-medium">
-                          {r.transactionId}
+                        {/* Transaction ID */}
+                        <td className="block md:table-cell px-0 md:px-4 py-1 md:py-3">
+                          <span className="md:hidden text-xs text-gray-500">
+                            Transaction ID
+                          </span>
+                          <div className="font-medium">
+                            {r.transactionId}
+                          </div>
                         </td>
 
-                        <td className="px-3 sm:px-4 py-2 sm:py-3">
+                        {/* Status */}
+                        <td className="block md:table-cell px-0 md:px-4 py-1 md:py-3">
+                          <span className="md:hidden text-xs text-gray-500">
+                            Status
+                          </span>
                           <StatusBadge status={r.status} />
                         </td>
 
-                        {/* Desktop only */}
-                        <td className="hidden md:table-cell px-4 py-3">
+                        {/* Mismatch */}
+                        <td className="block md:table-cell px-0 md:px-4 py-2 md:py-3">
+                          <span className="md:hidden text-xs text-gray-500">
+                            Mismatch Details
+                          </span>
+
                           {r.status === "UNMATCHED" ? (
                             <span className="text-gray-500 italic">
                               No matching system record found
@@ -106,7 +121,7 @@ export const UploadJobDetailsView = ({
                               {r.mismatchedFields.map((m) => (
                                 <div
                                   key={m.field}
-                                  className="text-red-600"
+                                  className="text-red-600 text-xs sm:text-sm"
                                 >
                                   <span className="font-medium">
                                     {m.field}
@@ -122,42 +137,6 @@ export const UploadJobDetailsView = ({
                   </tbody>
                 </table>
               </div>
-            </div>
-
-            {/* Mobile-only Cards */}
-            <div className="md:hidden space-y-3">
-              {data.results.map((r) => (
-                <div
-                  key={r._id}
-                  className="rounded-lg border bg-white p-3 shadow-sm"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium text-sm">
-                      {r.transactionId}
-                    </span>
-                    <StatusBadge status={r.status} />
-                  </div>
-
-                  <div className="mt-2 text-sm text-gray-600">
-                    {r.status === "UNMATCHED" ? (
-                      <span className="italic">
-                        No matching system record found
-                      </span>
-                    ) : r.mismatchedFields.length === 0 ? (
-                      <span className="text-gray-400">—</span>
-                    ) : (
-                      r.mismatchedFields.map((m) => (
-                        <div key={m.field}>
-                          <span className="font-medium">
-                            {m.field}
-                          </span>
-                          : {m.uploadedValue} → {m.systemValue}
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </div>
-              ))}
             </div>
           </>
         )}
