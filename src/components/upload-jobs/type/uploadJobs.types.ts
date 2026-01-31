@@ -28,15 +28,12 @@ export type ReconciliationResult = {
   }[];
 };
 
-
 export type Props = {
   label: string;
   value: number;
 };
 
-
 export type UploadJobDetailsViewProps = {
   loading: boolean;
   data: ReconciliationResult | null;
 };
-

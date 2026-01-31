@@ -1,8 +1,8 @@
 import { UploadJobDetailsView } from "../../components/upload-jobs/ui/UploadJobDetails.view";
-import { useUploadJobDetails } from "../../components/upload-jobs/hooks/useUploadJobDetails";
+import { useGetUploadJobDetails } from "../../components/upload-jobs/hooks/useGetUploadJobDetails";
 
 const UploadJobDetailsPage = () => {
-  const { data, loading } = useUploadJobDetails();
+  const { data, loading } = useGetUploadJobDetails();
 
   return <UploadJobDetailsView data={data} loading={loading} />;
 };

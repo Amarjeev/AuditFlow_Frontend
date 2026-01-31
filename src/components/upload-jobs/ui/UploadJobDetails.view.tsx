@@ -37,16 +37,16 @@ export const UploadJobDetailsView = ({ loading, data }: UploadJobDetailsViewProp
           <>
             {/* Summary Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-              <SummaryCard label="Total" value={data.totalRecords} />
-              <SummaryCard label="Matched" value={data.totalMatchedRecords} />
-              <SummaryCard label="Partial" value={data.totalPartialRecords} />
+              <SummaryCard label="Total" value={data?.totalRecords} />
+              <SummaryCard label="Matched" value={data?.totalMatchedRecords} />
+              <SummaryCard label="Partial" value={data?.totalPartialRecords} />
               <SummaryCard
                 label="Unmatched"
-                value={data.totalUnmatchedRecords}
+                value={data?.totalUnmatchedRecords}
               />
               <SummaryCard
                 label="Duplicate"
-                value={data.totalDuplicateRecords}
+                value={data?.totalDuplicateRecords}
               />
             </div>
 
@@ -54,7 +54,7 @@ export const UploadJobDetailsView = ({ loading, data }: UploadJobDetailsViewProp
             <div className="bg-white rounded-xl shadow-sm border flex flex-col overflow-hidden">
               {/* Header */}
               <div className="px-4 py-3 border-b font-semibold text-gray-700">
-                Reconciliation Results ({data.results.length})
+                Reconciliation Results ({data?.results?.length})
               </div>
 
               {/* Scrollable Table */}
@@ -70,37 +70,36 @@ export const UploadJobDetailsView = ({ loading, data }: UploadJobDetailsViewProp
                   </thead>
 
                   <tbody>
-                    {data.results.map((r) => (
+                    {data?.results?.map((r) => (
                       <tr
-                        key={r._id}
+                        key={r?._id}
                         className="border-b hover:bg-gray-50 transition"
                       >
                         <td className="px-4 py-3 text-gray-600">
-                          {r.excelRowNumber}
+                          {r?.excelRowNumber}
                         </td>
 
                         <td className="px-4 py-3 font-medium">
-                          {r.transactionId}
+                          {r?.transactionId}
                         </td>
 
                         <td className="px-4 py-3">
-                          <StatusBadge status={r.status} />
+                          <StatusBadge status={r?.status} />
                         </td>
 
-                        {/* ✅ Correct mismatch handling */}
                         <td className="px-4 py-3">
-                          {r.status === "UNMATCHED" ? (
+                          {r?.status === "UNMATCHED" ? (
                             <span className="text-gray-500 italic">
                               No matching system record found
                             </span>
-                          ) : r.mismatchedFields.length === 0 ? (
+                          ) : r?.mismatchedFields.length === 0 ? (
                             <span className="text-gray-400">—</span>
                           ) : (
                             <div className="space-y-1">
-                              {r.mismatchedFields.map((m) => (
-                                <div key={m.field} className="text-red-600">
-                                  <span className="font-medium">{m.field}</span>
-                                  : {m.uploadedValue} → {m.systemValue}
+                              {r?.mismatchedFields.map((m) => (
+                                <div key={m?.field} className="text-red-600">
+                                  <span className="font-medium">{m?.field}</span>
+                                  : {m?.uploadedValue} → {m?.systemValue}
                                 </div>
                               ))}
                             </div>
